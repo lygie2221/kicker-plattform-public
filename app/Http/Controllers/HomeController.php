@@ -34,4 +34,10 @@ class HomeController extends Controller
         );
 
     }
+
+    public function redirect()
+    {
+        return redirect(route('home'));
+
+    }
 }

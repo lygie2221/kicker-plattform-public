@@ -8,7 +8,7 @@ use App\DataTables\Viewer;
 use Illuminate\Foundation\Application;
 use Illuminate\Routing\Router;
 
-class Begegnungen extends Viewer
+class Spiele extends Viewer
 {
     public function __construct(Application $container)
     {
@@ -32,15 +32,20 @@ class Begegnungen extends Viewer
         $this->ShowTotals = true;
 
         $sql="SELECT
-                    Modus as modus,
-                    standort.name as Standort,
-                    begegnung.created_at as Datum
+                    spiel.ergebnis,
+                    standort.name as standort
                 FROM
+                    spiel
+                INNER JOIN
                     begegnung
+                    ON
+                        spiel.begegnung_id = begegnung.id
                 INNER JOIN
                     standort
                     ON
                         standort.id = begegnung.standort_id
+
+
 
         ";
 
@@ -50,19 +55,17 @@ class Begegnungen extends Viewer
         // Setup Columns
         $columns = [];
 
-        $columns['modus'] = new Column('Modus', 'modus');
-        $columns['modus']->GroupKey = true;
-        $columns['modus']->IsVisible = true;
-        $columns['modus']->IsGroupByAllowed = true;
-        $columns['modus']->SortByColumn = true;
+        $columns['ergebnis'] = new Column('Ergebnis', 'ergebnis');
+        $columns['ergebnis']->GroupKey = true;
+        $columns['ergebnis']->IsVisible = true;
+        $columns['ergebnis']->IsGroupByAllowed = true;
+        $columns['ergebnis']->SortByColumn = true;
 
         $columns['standort'] = new Column('Standort', 'Standort');
+        $columns['standort']->GroupKey = true;
+        $columns['standort']->PrimaryKey = true;
         $columns['standort']->IsVisible = true;
         $columns['standort']->IsGroupByAllowed = true;
-
-        $columns['datum'] = new Column('Datum', 'Datum');
-        $columns['datum']->IsVisible = true;
-        $columns['datum']->IsGroupByAllowed = true;
 
         $this->AddColumns($columns);
 

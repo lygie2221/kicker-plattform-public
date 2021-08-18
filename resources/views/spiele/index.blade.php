@@ -5,11 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Bisherige Begegnungen</div>
+                <div class="card-header">Bisherige Spiele</div>
                 <div id="dataTablesButtons" style="display: inline-block;"></div>
                 <div class="col search-wrapper px-2">
                     <a id="newlink" style="float: right;" href="{{ route('begegnungen.create') }}"
-                       class="btn btn-secondary fuse-ripple-ready">Neue Begenung
+                       class="btn btn-secondary fuse-ripple-ready">Neues Spiel
                     </a>
                 </div>
 

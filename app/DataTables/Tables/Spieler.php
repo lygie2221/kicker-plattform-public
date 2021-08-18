@@ -8,7 +8,7 @@ use App\DataTables\Viewer;
 use Illuminate\Foundation\Application;
 use Illuminate\Routing\Router;
 
-class Begegnungen extends Viewer
+class Spieler extends Viewer
 {
     public function __construct(Application $container)
     {
@@ -32,17 +32,18 @@ class Begegnungen extends Viewer
         $this->ShowTotals = true;
 
         $sql="SELECT
-                    Modus as modus,
-                    standort.name as Standort,
-                    begegnung.created_at as Datum
+                    users.name as name,
+                    users.email as email,
+                    standort.name as Standort
                 FROM
-                    begegnung
-                INNER JOIN
+                    users
+                LEFT JOIN
                     standort
                     ON
-                        standort.id = begegnung.standort_id
+                        standort.id = users.standort_id
 
         ";
+
 
 
         $this->SetTableQuery('(' . $sql . ') as tbl');
@@ -50,19 +51,21 @@ class Begegnungen extends Viewer
         // Setup Columns
         $columns = [];
 
-        $columns['modus'] = new Column('Modus', 'modus');
-        $columns['modus']->GroupKey = true;
-        $columns['modus']->IsVisible = true;
-        $columns['modus']->IsGroupByAllowed = true;
-        $columns['modus']->SortByColumn = true;
+        $columns['name'] = new Column('Name', 'name');
+        $columns['name']->GroupKey = true;
+        $columns['name']->IsVisible = true;
+        $columns['name']->IsGroupByAllowed = true;
+        $columns['name']->SortByColumn = true;
+
+        $columns['email'] = new Column('E-Mail', 'email');
+        $columns['email']->IsVisible = true;
+        $columns['email']->IsGroupByAllowed = true;
+        $columns['email']->SortByColumn = true;
 
         $columns['standort'] = new Column('Standort', 'Standort');
+        $columns['standort']->PrimaryKey = true;
         $columns['standort']->IsVisible = true;
         $columns['standort']->IsGroupByAllowed = true;
-
-        $columns['datum'] = new Column('Datum', 'Datum');
-        $columns['datum']->IsVisible = true;
-        $columns['datum']->IsGroupByAllowed = true;
 
         $this->AddColumns($columns);
 

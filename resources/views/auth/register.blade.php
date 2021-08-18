@@ -38,6 +38,15 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row { $errors->has('standort') ? 'has-error' : ''}}" >
+                            {!! Form::label('standort', 'Standort', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
+                            <div class="col-md-6">
+
+                                    {!! Form::select('standort', \App\Standort::getAllForSelect()
+                                ) !!}
+                                    {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -60,6 +69,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

@@ -258,7 +258,7 @@ class Viewer {
         //if(in_array($columns)) $columns[] =  $this->GetPrimaryKey();
         if(!empty($columns)) {
             if(!in_array($this->GetPrimaryKey(), $columns)) $columns[] =  $this->GetPrimaryKey();
-            return 'GROUP BY ' . implode(',', $columns);
+            return trim('GROUP BY ' . implode(',', $columns),",");
         } elseif(!empty($this->GetPrimaryKey())) {
             return 'GROUP BY ' . $this->GetPrimaryKey();
         }
