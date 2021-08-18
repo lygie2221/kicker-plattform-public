@@ -14,3 +14,12 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+
+Route::resource('begegnungen', 'BegegnungenController', ['names' => [
+    'store' => 'Begegnungen.new',
+    'edit' => 'Begegnungen.edit',
+    'destroy' => 'Begegnungen.destroy',
+    'update' => 'Begegnungen.update',
+
+]]);

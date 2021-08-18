@@ -85,13 +85,13 @@ var DTView = function(dataTableViewOptions) {
             settings.data += '&viscols='+viscols.join();
 
 
-            var drp = $('#reportrange').data('daterangepicker');
+        /*    var drp = $('#reportrange').data('daterangepicker');
             if(drp.length !== 0) {
                 if(drp) {
                     settings.data += '&date_start='+drp.startDate.format('YYYY-MM-DD');
                     settings.data += '&date_end='+drp.endDate.format('YYYY-MM-DD');
                 }
-            }
+            }*/
 
         }.bind(this),
         method: 'POST'

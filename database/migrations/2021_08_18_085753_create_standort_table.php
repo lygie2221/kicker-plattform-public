@@ -18,6 +18,13 @@ class CreateStandortTable extends Migration
             $table->string('name', 300);
             $table->timestamps();
         });
+
+        DB::table('standort')->insert([
+            'name' => "Berlin"]);
+        DB::table('standort')->insert([
+            'name' => "München"]);
+        DB::table('standort')->insert([
+            'name' => "Würzburg"]);
     }
 
     /**

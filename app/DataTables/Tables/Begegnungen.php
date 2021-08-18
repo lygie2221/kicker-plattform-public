@@ -3,7 +3,7 @@
 namespace App\DataTables\Tables;
 
 
-use App\DataTables\Model\Column;
+use App\DataTables\Column;
 use App\DataTables\Viewer;
 use Illuminate\Foundation\Application;
 use Illuminate\Routing\Router;
@@ -32,7 +32,8 @@ class Begegnungen extends Viewer
         $this->ShowTotals = true;
 
         $sql="SELECT
-                    Modus,
+                    Modus as modus,
+                    standort.name as Standort,
                     begegnung.created_at as Datum
                 FROM
                     begegnung
@@ -43,7 +44,26 @@ class Begegnungen extends Viewer
 
         ";
 
+
         $this->SetTableQuery('(' . $sql . ') as tbl');
+
+        // Setup Columns
+        $columns = [];
+
+        $columns['modus'] = new Column('Modus', 'modus');
+        $columns['modus']->GroupKey = true;
+        $columns['modus']->IsVisible = true;
+        $columns['modus']->IsGroupByAllowed = true;
+        $columns['modus']->SortByColumn = true;
+
+        $columns['standort'] = new Column('Standort', 'Standort');
+        $columns['standort']->GroupKey = true;
+        $columns['standort']->PrimaryKey = true;
+        $columns['standort']->IsVisible = true;
+        $columns['standort']->IsGroupByAllowed = true;
+
+        $this->AddColumns($columns);
+
 
     }
 }

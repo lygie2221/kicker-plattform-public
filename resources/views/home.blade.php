@@ -5,7 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Bisherige Begegnungen</div>
+                <div id="dataTablesButtons" style="display: inline-block;"></div>
+                <div class="col search-wrapper px-2">
+                    <a id="newlink" style="float: right;" href="{{ route('begegnungen.create') }}"
+                       class="btn btn-secondary fuse-ripple-ready">Neue Begenung
+                    </a>
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -24,6 +30,12 @@
 @section('page-script')
     <script type="text/javascript">
         $(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             var DataTable = $.fn.dataTable;
             $.extend( true, DataTable.Buttons.defaults, {

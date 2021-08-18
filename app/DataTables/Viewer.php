@@ -2,7 +2,7 @@
 namespace App\DataTables;
 
 
-use App\DataTables\Model\Column;
+use App\DataTables\Column;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
@@ -59,11 +59,11 @@ class Viewer {
     public function saveState($auth, $json_state) {
         $user = (string)$auth::user()->id;
 
-        $sth = $this->pdo->prepare("INSERT INTO 
-                                          dt_states 
-                                      SET 
-                                        username = :username, 
-                                        table_id = :table_id, 
+        $sth = $this->pdo->prepare("INSERT INTO
+                                          dt_states
+                                      SET
+                                        username = :username,
+                                        table_id = :table_id,
                                         data = :data
                                         ON DUPLICATE KEY UPDATE data =:data2");
 

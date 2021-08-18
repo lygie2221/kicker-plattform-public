@@ -26,11 +26,11 @@ class SSP {
                 $columnIdx = intval($request['order'][$i]['column']);
                 $requestColumn = $request['columns'][$columnIdx];
                 $columnIdx = array_search($requestColumn['data'], $dtColumns);
-                $column = $columns[$columnIdx];
+                $column = @$columns[$columnIdx];
 
                 if ($requestColumn['orderable'] == 'true') {
                     $dir = $request['order'][$i]['dir'] === 'asc' || $request['order'][$i]['dir'] === 'ASC'  ? 'ASC' : 'DESC';
-                    $orderBy[] = '' . $column['db'] . ' ' . $dir;
+                    $orderBy[] = '' . @$column['db'] . ' ' . $dir;
                 }
             }
             if (empty($orderBy)) {
@@ -81,7 +81,7 @@ class SSP {
         for ($i = 0, $ien = count(@$request['columns']); $i < $ien; $i++) {
             $requestColumn = $request['columns'][$i];
             $columnIdx = array_search($requestColumn['data'], $dtColumns);
-            $column = $columns[$columnIdx];
+            $column = @$columns[$columnIdx];
             $str = $requestColumn['search']['value'];
             if ($requestColumn['searchable'] == 'true' && $str != '' && $str != '^\-$') {
                 $str = str_replace("$", "", $str);
@@ -116,7 +116,10 @@ class SSP {
         if ($sql === null) {
             $sql = $bindings;
         }
+
         $stmt = $db->prepare($sql);
+
+
         //echo $sql;
         // Bind parameters
         if (is_array($bindings)) {
@@ -210,7 +213,7 @@ class SSP {
         }
 
         $data = self::sql_exec($db, $bindings, "SELECT SQL_CALC_FOUND_ROWS " . implode(", ", $fields) . "
-			 FROM $table 
+			 FROM $table
 			 $where
 			 $group
 			 $order
