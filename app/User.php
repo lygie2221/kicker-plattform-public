@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getAllForSelect(){
+        $select=[];
+        foreach(User::all() as $user){
+            $select[$user->id]=$user->name;
+        }
+        return $select;
+    }
 }

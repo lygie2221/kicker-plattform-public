@@ -27,4 +27,20 @@ class Begegnung extends Model
     {
         return $this->hasOne(Standort::class, 'standort_id', 'id');
     }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function spielerTeam1()
+    {
+        return $this->hasMany(User::class, 'begegnung_has_spieler_team1', 'begegnung_id ', 'spieler_id');
+    }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function spielerTeam2()
+    {
+        return $this->hasMany(User::class, 'begegnung_has_spieler_team2', 'begegnung_id ', 'spieler_id');
+    }
 }
